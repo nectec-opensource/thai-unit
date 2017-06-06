@@ -1,0 +1,56 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: "maven-publish"
+
+bintray {
+  user = project.hasProperty('bintrayUser') ? project.getProperty('bintrayUser') :
+          System.getenv('BINTRAY_USER') ?: ''
+  key = project.hasProperty('bintrayKey') ? project.getProperty('bintrayKey') :
+          System.getenv('BINTRAY_KEY') ?: ''
+  publications = ['mavenJava']
+  dryRun = true
+
+  pkg {
+    userOrg = 'nectec'
+    repo = 'maven'
+    name = 'thai-unit'
+    licenses = ['Apache-2.0']
+    websiteUrl = "https://github.com/$project.githubRepo"
+    issueTrackerUrl = "https://github.com/$project.githubRepo/issues"
+    vcsUrl = "https://github.com/${project.githubRepo}.git"
+    githubRepo = project.githubRepo
+
+    version {
+      name = project.version
+      released = new Date()
+      vcsTag = project.version
+    }
+  }
+}
+
+task sourcesJar(type: Jar, dependsOn: project.classes) {
+  from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: project.javadoc) {
+  from javadoc.destinationDir
+}
+
+artifacts {
+  archives sourcesJar, javadocJar
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      artifactId project.bintray.pkg.name
+      from components.java
+
+      artifact sourcesJar {
+        classifier = 'sources'
+      }
+      artifact javadocJar {
+        classifier = 'javadoc'
+      }
+    }
+  }
+}
