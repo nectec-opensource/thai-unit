@@ -23,4 +23,5 @@ dependencies {
 
   testCompile 'junit:junit:4.12'
   testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+  testCompile "com.google.code.gson:gson:2.8.1"
 }

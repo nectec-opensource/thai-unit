@@ -45,6 +45,19 @@ class Area(val squareMetre: Int) {
     return StringBuilder().append(rai).append('-').append(ngan).append('-').append(squareWa).append(" ไร่").toString()
   }
 
+  private fun squareMetreToRai(squareMeter: Int): Int {
+    return squareMeter / SQUARE_METRE_PER_RAI
+  }
+
+  private fun squareMetreToNgan(squareMeter: Int): Int {
+    return squareMeter % SQUARE_METRE_PER_RAI / SQUARE_METRE_PER_NGAN
+  }
+
+  private fun squareMetreToSquareWa(squareMeter: Int): Int {
+    val squareWa = squareMeter % SQUARE_METRE_PER_NGAN / SQUARE_METRE_PER_SQUARE_WA
+    return Math.round(squareWa)
+  }
+
   companion object {
     val SQUARE_METRE_PER_RAI = 1600
     val SQUARE_METRE_PER_NGAN = 400
@@ -53,25 +66,12 @@ class Area(val squareMetre: Int) {
     val NGAN = "งาน"
     val SQUARE_WA = "ตารางวา"
 
-    private fun squareMetreToRai(squareMeter: Int): Int {
-      return squareMeter / SQUARE_METRE_PER_RAI
-    }
-
-    private fun squareMetreToNgan(squareMeter: Int): Int {
-      return squareMeter % SQUARE_METRE_PER_RAI / SQUARE_METRE_PER_NGAN
-    }
-
-    private fun squareMetreToSquareWa(squareMeter: Int): Int {
-      val squareWa = squareMeter % SQUARE_METRE_PER_NGAN / SQUARE_METRE_PER_SQUARE_WA
-      return Math.round(squareWa)
-    }
-
     fun from(rai: Int, ngan: Int, squareWa: Int): Area {
       return Area(RaiToSqMeter(rai, ngan, squareWa))
     }
 
-    fun RaiToSqMeter(rai: Int, ngan: Int, tarangwa: Int): Int {
-      val sqMeter = (rai * SQUARE_METRE_PER_RAI).toFloat() + (ngan * SQUARE_METRE_PER_NGAN).toFloat() + tarangwa * SQUARE_METRE_PER_SQUARE_WA
+    private fun RaiToSqMeter(rai: Int, ngan: Int, squareWa: Int): Int {
+      val sqMeter = (rai * SQUARE_METRE_PER_RAI).toFloat() + (ngan * SQUARE_METRE_PER_NGAN).toFloat() + squareWa * SQUARE_METRE_PER_SQUARE_WA
       return Math.round(sqMeter)
     }
   }

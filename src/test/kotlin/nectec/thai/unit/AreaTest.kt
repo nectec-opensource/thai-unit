@@ -1,5 +1,6 @@
 package nectec.thai.unit
 
+import com.google.gson.Gson
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -39,7 +40,7 @@ class AreaTest {
     assertEquals("2-3-99 ไร่", Area.from(0, 7, 499).prettyPrint());
   }
 
-  @Test fun rounding(){
+  @Test fun rounding() {
     val ex1 = Area(2400)
     assertEquals(1, ex1.rai)
     assertEquals(2, ex1.ngan)
@@ -59,5 +60,19 @@ class AreaTest {
     assertEquals(1, ex4.rai)
     assertEquals(0, ex4.ngan)
     assertEquals(0, ex4.squareWa)
+  }
+
+  @Test fun gsonToJson() {
+    assertEquals("{\"rai\":1,\"ngan\":0,\"squareWa\":0,\"squareMetre\":1600}",
+        Gson().toJson(Area(1600)))
+
+  }
+
+  @Test
+  fun gsonFromJson() {
+    val area = Gson().fromJson("{\"rai\":1,\"ngan\":0,\"squareWa\":0,\"squareMetre\":1600}",
+        Area::class.java)
+    assertEquals(1, area.rai)
+
   }
 }
