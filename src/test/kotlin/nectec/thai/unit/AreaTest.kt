@@ -85,11 +85,9 @@ class AreaTest {
 
   }
 
-  @Test
-  fun gsonFromJson() {
+  @Test fun gsonFromJson() {
     val area = Gson().fromJson("{\"rai\":1,\"ngan\":0,\"squareWa\":0,\"squareMetre\":1600}",
         Area::class.java)
     assertEquals(1, area.rai)
-
   }
 }

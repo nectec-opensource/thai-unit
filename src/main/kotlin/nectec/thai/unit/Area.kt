@@ -84,10 +84,10 @@ class Area(val squareMetre: Int) {
     val SQUARE_WA = "ตารางวา"
 
     fun from(rai: Int, ngan: Int, squareWa: Int): Area {
-      return Area(RaiToSqMeter(rai, ngan, squareWa))
+      return Area(raiToSqMeter(rai, ngan, squareWa))
     }
 
-    private fun RaiToSqMeter(rai: Int, ngan: Int, squareWa: Int): Int {
+    private fun raiToSqMeter(rai: Int, ngan: Int, squareWa: Int): Int {
       val sqMeter = (rai * SQUARE_METRE_PER_RAI).toFloat() + (ngan * SQUARE_METRE_PER_NGAN).toFloat() + squareWa * SQUARE_METRE_PER_SQUARE_WA
       return Math.round(sqMeter)
     }
