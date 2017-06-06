@@ -7,8 +7,7 @@ bintray {
   key = project.hasProperty('bintrayKey') ? project.getProperty('bintrayKey') :
           System.getenv('BINTRAY_KEY') ?: ''
   publications = ['mavenJava']
-  dryRun = true
-
+  publish = true
   pkg {
     userOrg = 'nectec'
     repo = 'maven'
