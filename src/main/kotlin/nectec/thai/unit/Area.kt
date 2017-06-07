@@ -19,7 +19,7 @@ package nectec.thai.unit
 
 import java.lang.StringBuilder
 
-class Area(val squareMetre: Int) {
+data class Area(val squareMetre: Int) {
 
   val rai: Int
   val ngan: Int
@@ -76,14 +76,8 @@ class Area(val squareMetre: Int) {
   }
 
   companion object {
-    val SQUARE_METRE_PER_RAI = 1600
-    val SQUARE_METRE_PER_NGAN = 400
-    val SQUARE_METRE_PER_SQUARE_WA = 4f
-    val RAI = "ไร่"
-    val NGAN = "งาน"
-    val SQUARE_WA = "ตารางวา"
 
-    fun from(rai: Int, ngan: Int, squareWa: Int): Area {
+    @JvmStatic fun from(rai: Int, ngan: Int, squareWa: Int): Area {
       return Area(raiToSqMeter(rai, ngan, squareWa))
     }
 
