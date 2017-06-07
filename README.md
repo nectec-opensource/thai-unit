@@ -13,7 +13,7 @@
 
 ```groovy
 dependencies {
-  compile 'nectec:thai-unit:LATEST_VERSION'
+  compile 'th.or.nectec:thai-unit:LATEST_VERSION'
 }
 ```
 Change `LATEST_VERSION` to latest version name

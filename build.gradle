@@ -1,4 +1,4 @@
-group 'nectec'
+group 'th.or.nectec'
 version = {->
   def stdout = new ByteArrayOutputStream()
   exec {
