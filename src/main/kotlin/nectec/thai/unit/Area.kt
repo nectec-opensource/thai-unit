@@ -65,7 +65,7 @@ data class Area(val squareMetre: Double) {
   }
 
   fun prettyPrint(): String {
-    return StringBuilder().append(rai).append('-').append(ngan).append('-').append(squareWa.round()).append(" ไร่").toString()
+    return String.format("%d-%d-%s ไร่", rai, ngan, squareWa.round())
   }
 
   private fun squareMetreToRai(squareMeter: Double): Int {
