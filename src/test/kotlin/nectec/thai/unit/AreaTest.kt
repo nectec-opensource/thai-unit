@@ -43,18 +43,18 @@ class AreaTest {
 
   @Test fun formalPrint() {
     assertEquals("1 ไร่", area.formalPrint());
-    assertEquals("2 งาน", Area.from(0, 2, 0).formalPrint());
-    assertEquals("1 ตารางวา", Area.from(0, 0, 1).formalPrint());
-    assertEquals("1 ไร่ 99 ตารางวา", Area.from(0, 0, 499).formalPrint());
-    assertEquals("2 ไร่ 3 งาน 99 ตารางวา", Area.from(0, 7, 499).formalPrint());
+    assertEquals("2 งาน", Area(0, 2, 0).formalPrint());
+    assertEquals("1 ตารางวา", Area(0, 0, 1).formalPrint());
+    assertEquals("1 ไร่ 99 ตารางวา", Area(0, 0, 499).formalPrint());
+    assertEquals("2 ไร่ 3 งาน 99 ตารางวา", Area(0, 7, 499).formalPrint());
   }
 
   @Test fun prettyPrint() {
-    assertEquals("1-0-0 ไร่", area.prettyPrint());
-    assertEquals("0-2-0 ไร่", Area.from(0, 2, 0).prettyPrint());
-    assertEquals("0-0-1.9 ไร่", Area.from(0, 0, 1.9).prettyPrint());
-    assertEquals("1-0-99.5 ไร่", Area.from(0, 0, 499.5).prettyPrint());
-    assertEquals("2-3-99.75 ไร่", Area.from(0, 7, 499.75).prettyPrint());
+    assertEquals("1-0-0 ไร่", area.prettyPrint())
+    assertEquals("0-2-0 ไร่", Area(0, 2, 0).prettyPrint())
+    assertEquals("0-0-1.9 ไร่", Area(0, 0, 1.9).prettyPrint())
+    assertEquals("1-0-99.5 ไร่", Area(0, 0, 499.5).prettyPrint())
+    assertEquals("2-3-99.75 ไร่", Area(0, 7, 499.75).prettyPrint())
   }
 
   @Test fun rounding() {

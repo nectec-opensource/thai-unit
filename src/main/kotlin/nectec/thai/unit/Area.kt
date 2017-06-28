@@ -21,6 +21,12 @@ import java.lang.StringBuilder
 
 data class Area(val squareMetre: Double) {
 
+  constructor(squareMetre: Int) : this(squareMetre.toDouble())
+
+  constructor(rai: Int, ngan: Int, squareWa: Double) : this(toMetre(rai, ngan, squareWa))
+
+  constructor(rai: Int, ngan: Int, squareWa: Int) : this(toMetre(rai, ngan, squareWa.toDouble()))
+
   val rai: Int
   val ngan: Int
   val squareWa: Double
@@ -76,22 +82,14 @@ data class Area(val squareMetre: Double) {
   }
 
   companion object {
-    val SQUARE_METRE_PER_RAI = 1600
-    val SQUARE_METRE_PER_NGAN = 400
-    val SQUARE_METRE_PER_SQUARE_WA = 4.0
-    val RAI = "ไร่"
-    val NGAN = "งาน"
-    val SQUARE_WA = "ตารางวา"
+    @JvmField val SQUARE_METRE_PER_RAI = 1600
+    @JvmField val SQUARE_METRE_PER_NGAN = 400
+    @JvmField val SQUARE_METRE_PER_SQUARE_WA = 4.0
+    @JvmField val RAI = "ไร่"
+    @JvmField val NGAN = "งาน"
+    @JvmField val SQUARE_WA = "ตารางวา"
 
-    @JvmStatic fun from(rai: Int, ngan: Int, squareWa: Int): Area {
-      return from(rai, ngan, squareWa.toDouble())
-    }
-
-    @JvmStatic fun from(rai: Int, ngan: Int, squareWa: Double): Area {
-      return Area(raiToSqMeter(rai, ngan, squareWa))
-    }
-
-    private fun raiToSqMeter(rai: Int, ngan: Int, squareWa: Double): Double {
+    private fun toMetre(rai: Int, ngan: Int, squareWa: Double): Double {
       return (rai * SQUARE_METRE_PER_RAI).toDouble() + (ngan * SQUARE_METRE_PER_NGAN).toDouble() + (squareWa * SQUARE_METRE_PER_SQUARE_WA)
     }
   }
