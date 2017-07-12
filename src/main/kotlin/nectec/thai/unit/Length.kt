@@ -1,14 +1,17 @@
 package nectec.thai.unit
 
-import javafx.beans.binding.Bindings
 import java.lang.StringBuilder
 
 /**
  * Created by user on 11/7/2560.
  */
 data class Length (val cm: Double) {
+  constructor(cm: Number) : this(cm.toDouble())
 
+  //Auto Gen \($1.toDouble\(\)*CENTIMETRE_PER_$2\)+
+  constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this((yot.toDouble()*CENTIMETRE_PER_YOT)+(sen.toDouble()*CENTIMETRE_PER_SEN)+(wa.toDouble()*CENTIMETRE_PER_WA)+(sok.toDouble()*CENTIMETRE_PER_SOK)+(khuep.toDouble()*CENTIMETRE_PER_KHUEP)+(nio.toDouble()*CENTIMETRE_PER_NIO)+(krabiat.toDouble()*CENTIMETRE_PER_KRABIAT))
 
+  //Auto Gen val $1: Int
   val krabiat: Int
   val nio: Int
   val khuep: Int
@@ -17,10 +20,15 @@ data class Length (val cm: Double) {
   val sen: Int
   val yot: Int
 
+
+
   init {
+
     var tmp :Double
     this.yot=(cm/CENTIMETRE_PER_YOT).toInt()
     tmp=(cm%CENTIMETRE_PER_YOT)
+
+    //Auto Gen this.$1=\(tmp/CENTIMETRE_PER_$2\).toInt\(\)\r\ntmp=\(tmp%CENTIMETRE_PER_$2\)
     this.sen=(tmp/CENTIMETRE_PER_SEN).toInt()
     tmp=(tmp%CENTIMETRE_PER_SEN)
     this.wa=(tmp/CENTIMETRE_PER_WA).toInt()
@@ -38,6 +46,8 @@ data class Length (val cm: Double) {
 
   companion object {
 
+
+    //Auto Gen @JvmField val CENTIMETRE_PER_$1 = xx
     @JvmField val CENTIMETRE_PER_KRABIAT = 0.5208
     @JvmField val CENTIMETRE_PER_NIO = 2.083
     @JvmField val CENTIMETRE_PER_KHUEP = 25
@@ -46,6 +56,7 @@ data class Length (val cm: Double) {
     @JvmField val CENTIMETRE_PER_SEN = 4000
     @JvmField val CENTIMETRE_PER_YOT = 1600000
 
+    //Auto Gen @JvmField val $1 = "$2"
     @JvmField val KRABIAT = " กระเบียด "
     @JvmField val NIO = " นิ้ว "
     @JvmField val KHUEP = " คืบ "
@@ -56,10 +67,33 @@ data class Length (val cm: Double) {
 
   }
 
+
   fun prtAll(): String {
 
     val stringBuilder = StringBuilder()
-    return stringBuilder.append(krabiat).append(KRABIAT).append(nio).append(NIO).append(khuep).append(KHUEP).append(sok).append(SOK).append(wa).append(WA).append(sen).append(SEN).append(yot).append(YOT).toString().trim()
+    //Auto Gen .append\($1\).append\($2\)
+    return stringBuilder.append(yot).append(YOT).append(sen).append(SEN).append(wa).append(WA).append(sok).append(SOK).append(khuep).append(KHUEP).append(nio).append(NIO).append(krabiat).append(KRABIAT).toString().trim()
   }
 
 }
+
+
+
+//Auto Gen
+/*
+yot	YOT
+sen	SEN
+wa	WA
+sok	SOK
+khuep	KHUEP
+nio	NIO
+krabiat	KRABIAT
+
+krabiat	KRABIAT
+nio	NIO
+khuep	KHUEP
+sok	SOK
+wa	WA
+sen	SEN
+yot	YOT
+ */
