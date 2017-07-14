@@ -3,11 +3,20 @@ package nectec.thai.unit
 import java.lang.StringBuilder
 
 /**
+ * Thai length unit.
  * Created by user on 11/7/2560.
  */
 data class Length (val cm: Double) {
+  /**
+   * Create convert object
+   * @param cm is centimetres SI Ref. https://en.wikipedia.org/wiki/Centimetre/
+   * @see <a href="http://google.com">http://google.com</a>
+   */
   constructor(cm: Number) : this(cm.toDouble())
 
+  /**
+   * Create by Thai Unit Length <a href="https://en.wikipedia.org/wiki/Thai_units_of_measurement">https://en.wikipedia.org/wiki/Thai_units_of_measurement</a>
+   */
   //Auto Gen \($1.toDouble\(\)*CENTIMETRE_PER_$2\)+
   constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this((yot.toDouble()*CENTIMETRE_PER_YOT)+(sen.toDouble()*CENTIMETRE_PER_SEN)+(wa.toDouble()*CENTIMETRE_PER_WA)+(sok.toDouble()*CENTIMETRE_PER_SOK)+(khuep.toDouble()*CENTIMETRE_PER_KHUEP)+(nio.toDouble()*CENTIMETRE_PER_NIO)+(krabiat.toDouble()*CENTIMETRE_PER_KRABIAT))
 
@@ -67,7 +76,10 @@ data class Length (val cm: Double) {
 
   }
 
-
+  /**
+   * Print standart output.
+   * @return String "%d โยชน์ %d เส้น %d วา %d ศอก %d คืบ %d นิ้ว %d กระเบียด"
+   */
   fun prtAll(): String {
 
     val stringBuilder = StringBuilder()
