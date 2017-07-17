@@ -30,4 +30,9 @@ class LenghtTest {
     assertEquals("10 โยชน์ 7 เส้น 8 วา 0 ศอก 1 คืบ 7 นิ้ว 1 กระเบียด", Length(10,7,6,6,5,7,1).prtAll())
   }
 
+
+  @Test fun prtAll4() {
+    assertEquals("10 โยชน์ 1 คืบ 2 นิ้ว 1 กระเบียด", Length(10,0,0,0,1,2,1).prtAllV2())
+  }
+
 }
