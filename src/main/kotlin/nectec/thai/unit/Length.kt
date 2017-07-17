@@ -1,6 +1,9 @@
 package nectec.thai.unit
 
 import java.lang.StringBuilder
+import java.text.NumberFormat
+
+
 
 /**
  * Thai length unit.
@@ -21,7 +24,7 @@ data class Length (val cm: Double) {
   constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this((yot.toDouble()*CENTIMETRE_PER_YOT)+(sen.toDouble()*CENTIMETRE_PER_SEN)+(wa.toDouble()*CENTIMETRE_PER_WA)+(sok.toDouble()*CENTIMETRE_PER_SOK)+(khuep.toDouble()*CENTIMETRE_PER_KHUEP)+(nio.toDouble()*CENTIMETRE_PER_NIO)+(krabiat.toDouble()*CENTIMETRE_PER_KRABIAT))
 
   //Auto Gen val $1: Int
-  val krabiat: Int
+  val krabiat: Double
   val nio: Int
   val khuep: Int
   val sok: Int
@@ -29,9 +32,13 @@ data class Length (val cm: Double) {
   val sen: Int
   val yot: Int
 
-
+  val nf = NumberFormat.getNumberInstance()
 
   init {
+
+
+    nf.maximumFractionDigits=0
+    nf.roundingMode=java.math.RoundingMode.DOWN
 
     var tmp :Double
     this.yot=(cm/CENTIMETRE_PER_YOT).toInt()
@@ -48,8 +55,15 @@ data class Length (val cm: Double) {
     tmp=(tmp%CENTIMETRE_PER_KHUEP)
     this.nio=(tmp/CENTIMETRE_PER_NIO).toInt()
     tmp=(tmp%CENTIMETRE_PER_NIO)
-    this.krabiat=(tmp/CENTIMETRE_PER_KRABIAT).toInt()
-    tmp=(tmp%CENTIMETRE_PER_KRABIAT)
+
+    this.krabiat=((tmp/CENTIMETRE_PER_KRABIAT)+(tmp%CENTIMETRE_PER_KRABIAT))
+
+
+
+    //nf.setMaximumFractionDigits(0)
+    //nf.setRoundingMode(RoundingMode.UP)
+
+    //tmp=(tmp%CENTIMETRE_PER_KRABIAT)
 
   }
 
@@ -58,7 +72,7 @@ data class Length (val cm: Double) {
 
     //Auto Gen @JvmField val CENTIMETRE_PER_$1 = xx
     @JvmField val CENTIMETRE_PER_KRABIAT = 0.5208
-    @JvmField val CENTIMETRE_PER_NIO = 2.083
+    @JvmField val CENTIMETRE_PER_NIO = 2.0//83
     @JvmField val CENTIMETRE_PER_KHUEP = 25
     @JvmField val CENTIMETRE_PER_SOK = 50
     @JvmField val CENTIMETRE_PER_WA = 200
@@ -84,7 +98,16 @@ data class Length (val cm: Double) {
 
     val stringBuilder = StringBuilder()
     //Auto Gen .append\($1\).append\($2\)
-    return stringBuilder.append(yot).append(YOT).append(sen).append(SEN).append(wa).append(WA).append(sok).append(SOK).append(khuep).append(KHUEP).append(nio).append(NIO).append(krabiat).append(KRABIAT).toString().trim()
+    return stringBuilder.append(yot).append(YOT).append(sen).append(SEN).append(wa).append(WA).append(sok).append(SOK).append(khuep).append(KHUEP).append(nio).append(NIO).append(nf.format(krabiat)).append(KRABIAT).toString().trim()
+  }
+
+  /**
+   * Zero No Print
+   */
+  fun prtAllV2(): String {
+    val stringBuilder = StringBuilder()
+    //Auto Gen .append\($1\).append\($2\)
+    return stringBuilder.append(when(yot) {0-> "" else -> yot.toString()+YOT } ).append(when(sen) {0-> "" else -> sen.toString()+SEN } ).append(when(wa) {0-> "" else -> wa.toString()+WA } ).append(when(sok) {0-> "" else -> sok.toString()+SOK } ).append(when(khuep) {0-> "" else -> khuep.toString()+KHUEP } ).append(when(nio) {0-> "" else -> nio.toString()+NIO } ).append(when(krabiat) {0.0-> "" else -> nf.format(krabiat)+KRABIAT } ).toString().trim()
   }
 
 }
