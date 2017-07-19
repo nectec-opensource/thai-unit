@@ -61,7 +61,7 @@ data class Length (val centimetres: Double) {
     //Ref. https://en.wikipedia.org/wiki/Thai_units_of_measurement
     //Auto RegEx Output @JvmField val CENTIMETRE_PER_$1 = xx
     @JvmField val CENTIMETRE_PER_KRABIAT = 0.5208
-    @JvmField val CENTIMETRE_PER_NIO = 2.0//83
+    @JvmField val CENTIMETRE_PER_NIO = 2.083
     @JvmField val CENTIMETRE_PER_KHUEP = 25
     @JvmField val CENTIMETRE_PER_SOK = 50
     @JvmField val CENTIMETRE_PER_WA = 200
