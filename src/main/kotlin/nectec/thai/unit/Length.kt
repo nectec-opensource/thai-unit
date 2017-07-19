@@ -4,22 +4,17 @@ import java.lang.StringBuilder
 import java.text.NumberFormat
 
 
-
 /**
  * Thai length unit.
  * Created by user on 11/7/2560.
  */
 data class Length (val cm: Double) {
-  /**
-   * Create convert object
-   * @param cm is centimetres SI Ref. https://en.wikipedia.org/wiki/Centimetre/
-   * @see <a href="http://google.com">http://google.com</a>
-   */
-  constructor(cm: Number) : this(cm.toDouble())
+
 
   /**
-   * Create by Thai Unit Length <a href="https://en.wikipedia.org/wiki/Thai_units_of_measurement">https://en.wikipedia.org/wiki/Thai_units_of_measurement</a>
+   * Create convert object
    */
+  constructor(centimetres: Number) : this(centimetres.toDouble())
   //Auto Gen \($1.toDouble\(\)*CENTIMETRE_PER_$2\)+
   constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this((yot.toDouble()*CENTIMETRE_PER_YOT)+(sen.toDouble()*CENTIMETRE_PER_SEN)+(wa.toDouble()*CENTIMETRE_PER_WA)+(sok.toDouble()*CENTIMETRE_PER_SOK)+(khuep.toDouble()*CENTIMETRE_PER_KHUEP)+(nio.toDouble()*CENTIMETRE_PER_NIO)+(krabiat.toDouble()*CENTIMETRE_PER_KRABIAT))
 
@@ -32,44 +27,44 @@ data class Length (val cm: Double) {
   val sen: Int
   val yot: Int
 
-  val nf = NumberFormat.getNumberInstance()
+  val number_format = NumberFormat.getNumberInstance()
 
   init {
 
+    var temp_value :Double
 
-    nf.maximumFractionDigits=0
-    nf.roundingMode=java.math.RoundingMode.DOWN
+    //Number rounding format.
+    number_format.maximumFractionDigits=0
+    number_format.roundingMode=java.math.RoundingMode.DOWN
 
-    var tmp :Double
+    //Convert centimetres to thai unit. YOT->SEN->WA->SOK->KHUEP->NIO->KRABIAT
     this.yot=(cm/CENTIMETRE_PER_YOT).toInt()
-    tmp=(cm%CENTIMETRE_PER_YOT)
+    temp_value=(cm%CENTIMETRE_PER_YOT)
 
-    //Auto Gen this.$1=\(tmp/CENTIMETRE_PER_$2\).toInt\(\)\r\ntmp=\(tmp%CENTIMETRE_PER_$2\)
-    this.sen=(tmp/CENTIMETRE_PER_SEN).toInt()
-    tmp=(tmp%CENTIMETRE_PER_SEN)
-    this.wa=(tmp/CENTIMETRE_PER_WA).toInt()
-    tmp=(tmp%CENTIMETRE_PER_WA)
-    this.sok=(tmp/CENTIMETRE_PER_SOK).toInt()
-    tmp=(tmp%CENTIMETRE_PER_SOK)
-    this.khuep=(tmp/CENTIMETRE_PER_KHUEP).toInt()
-    tmp=(tmp%CENTIMETRE_PER_KHUEP)
-    this.nio=(tmp/CENTIMETRE_PER_NIO).toInt()
-    tmp=(tmp%CENTIMETRE_PER_NIO)
+    //Auto Gen this.$1=\(temp_value/CENTIMETRE_PER_$2\).toInt\(\)\r\ntemp_value=\(temp_value%CENTIMETRE_PER_$2\)
+    this.sen=(temp_value/CENTIMETRE_PER_SEN).toInt()
+    temp_value=(temp_value%CENTIMETRE_PER_SEN)
 
-    this.krabiat=((tmp/CENTIMETRE_PER_KRABIAT)+(tmp%CENTIMETRE_PER_KRABIAT))
+    this.wa=(temp_value/CENTIMETRE_PER_WA).toInt()
+    temp_value=(temp_value%CENTIMETRE_PER_WA)
 
+    this.sok=(temp_value/CENTIMETRE_PER_SOK).toInt()
+    temp_value=(temp_value%CENTIMETRE_PER_SOK)
 
+    this.khuep=(temp_value/CENTIMETRE_PER_KHUEP).toInt()
+    temp_value=(temp_value%CENTIMETRE_PER_KHUEP)
 
-    //nf.setMaximumFractionDigits(0)
-    //nf.setRoundingMode(RoundingMode.UP)
+    this.nio=(temp_value/CENTIMETRE_PER_NIO).toInt()
+    temp_value=(temp_value%CENTIMETRE_PER_NIO)
 
-    //tmp=(tmp%CENTIMETRE_PER_KRABIAT)
+    this.krabiat=((temp_value/CENTIMETRE_PER_KRABIAT)+(temp_value%CENTIMETRE_PER_KRABIAT))
+
 
   }
 
   companion object {
 
-
+    //Ref. https://en.wikipedia.org/wiki/Thai_units_of_measurement
     //Auto Gen @JvmField val CENTIMETRE_PER_$1 = xx
     @JvmField val CENTIMETRE_PER_KRABIAT = 0.5208
     @JvmField val CENTIMETRE_PER_NIO = 2.0//83
@@ -90,26 +85,19 @@ data class Length (val cm: Double) {
 
   }
 
-  /**
-   * Print standart output.
-   * @return String "%d โยชน์ %d เส้น %d วา %d ศอก %d คืบ %d นิ้ว %d กระเบียด"
-   */
-  fun prtAll(): String {
-
+  fun formalPrint(): String {
     val stringBuilder = StringBuilder()
     //Auto Gen .append\($1\).append\($2\)
-    return stringBuilder.append(yot).append(YOT).append(sen).append(SEN).append(wa).append(WA).append(sok).append(SOK).append(khuep).append(KHUEP).append(nio).append(NIO).append(nf.format(krabiat)).append(KRABIAT).toString().trim()
+    return stringBuilder
+      .append(when(yot) {0-> "" else -> yot.toString()+YOT } )
+      .append(when(sen) {0-> "" else -> sen.toString()+SEN } )
+      .append(when(wa) {0-> "" else -> wa.toString()+WA } )
+      .append(when(sok) {0-> "" else -> sok.toString()+SOK } )
+      .append(when(khuep) {0-> "" else -> khuep.toString()+KHUEP } )
+      .append(when(nio) {0-> "" else -> nio.toString()+NIO } )
+      .append(when(krabiat) {0.0-> "" else -> number_format.format(krabiat)+KRABIAT } )
+      .toString().trim()
   }
-
-  /**
-   * Zero No Print
-   */
-  fun prtAllV2(): String {
-    val stringBuilder = StringBuilder()
-    //Auto Gen .append\($1\).append\($2\)
-    return stringBuilder.append(when(yot) {0-> "" else -> yot.toString()+YOT } ).append(when(sen) {0-> "" else -> sen.toString()+SEN } ).append(when(wa) {0-> "" else -> wa.toString()+WA } ).append(when(sok) {0-> "" else -> sok.toString()+SOK } ).append(when(khuep) {0-> "" else -> khuep.toString()+KHUEP } ).append(when(nio) {0-> "" else -> nio.toString()+NIO } ).append(when(krabiat) {0.0-> "" else -> nf.format(krabiat)+KRABIAT } ).toString().trim()
-  }
-
 }
 
 
