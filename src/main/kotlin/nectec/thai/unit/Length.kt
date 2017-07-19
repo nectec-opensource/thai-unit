@@ -6,19 +6,15 @@ import java.text.NumberFormat
 
 /**
  * Thai length unit.
- * Created by user on 11/7/2560.
+ * Ref. https://en.wikipedia.org/wiki/Thai_units_of_measurement
+ * Created by max on 11/7/2560.
  */
 data class Length (val centimetres: Double) {
 
-
-  /**
-   * Create convert object
-   */
   constructor(centimetres: Number) : this(centimetres.toDouble())
-
   constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this(toCentimetres(yot, sen, wa, sok, khuep, nio, krabiat))
 
-  //Auto Gen val $1: Int
+  //Auto RegEx Output val $1: Int
   val krabiat: Double
   val nio: Int
   val khuep: Int
@@ -27,21 +23,21 @@ data class Length (val centimetres: Double) {
   val sen: Int
   val yot: Int
 
-  val number_format = NumberFormat.getNumberInstance()
+  val rounding_number_format = NumberFormat.getNumberInstance()
 
   init {
 
     var temp_value :Double
 
     //Number rounding format.
-    number_format.maximumFractionDigits=0
-    number_format.roundingMode=java.math.RoundingMode.DOWN
+    rounding_number_format.maximumFractionDigits=0
+    rounding_number_format.roundingMode=java.math.RoundingMode.DOWN
 
     //Convert centimetres to thai unit. YOT->SEN->WA->SOK->KHUEP->NIO->KRABIAT
     this.yot=(centimetres /CENTIMETRE_PER_YOT).toInt()
     temp_value=(centimetres %CENTIMETRE_PER_YOT)
 
-    //Auto Gen this.$1=\(temp_value/CENTIMETRE_PER_$2\).toInt\(\)\r\ntemp_value=\(temp_value%CENTIMETRE_PER_$2\)
+    //Auto RegEx Output this.$1=\(temp_value/CENTIMETRE_PER_$2\).toInt\(\)\r\ntemp_value=\(temp_value%CENTIMETRE_PER_$2\)
     this.sen=(temp_value/CENTIMETRE_PER_SEN).toInt()
     temp_value=(temp_value%CENTIMETRE_PER_SEN)
 
@@ -58,14 +54,12 @@ data class Length (val centimetres: Double) {
     temp_value=(temp_value%CENTIMETRE_PER_NIO)
 
     this.krabiat=((temp_value/CENTIMETRE_PER_KRABIAT)+(temp_value%CENTIMETRE_PER_KRABIAT))
-
-
   }
 
   companion object {
 
     //Ref. https://en.wikipedia.org/wiki/Thai_units_of_measurement
-    //Auto Gen @JvmField val CENTIMETRE_PER_$1 = xx
+    //Auto RegEx Output @JvmField val CENTIMETRE_PER_$1 = xx
     @JvmField val CENTIMETRE_PER_KRABIAT = 0.5208
     @JvmField val CENTIMETRE_PER_NIO = 2.0//83
     @JvmField val CENTIMETRE_PER_KHUEP = 25
@@ -74,7 +68,7 @@ data class Length (val centimetres: Double) {
     @JvmField val CENTIMETRE_PER_SEN = 4000
     @JvmField val CENTIMETRE_PER_YOT = 1600000
 
-    //Auto Gen @JvmField val $1 = "$2"
+    //Auto RegEx Output @JvmField val $1 = "$2"
     @JvmField val KRABIAT = " กระเบียด "
     @JvmField val NIO = " นิ้ว "
     @JvmField val KHUEP = " คืบ "
@@ -86,7 +80,7 @@ data class Length (val centimetres: Double) {
     private fun toCentimetres(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number):Number{
       return +
 
-      //Auto Gen \($1.toDouble\(\)*CENTIMETRE_PER_$2\)+
+      //Auto RegEx Output \($1.toDouble\(\)*CENTIMETRE_PER_$2\)+
         (yot.toDouble()*CENTIMETRE_PER_YOT)+
         (sen.toDouble()*CENTIMETRE_PER_SEN)+
         (wa.toDouble()*CENTIMETRE_PER_WA)+
@@ -97,33 +91,59 @@ data class Length (val centimetres: Double) {
     }
   }
 
+  /**
+   * Print All
+   * Exam create object input Length(10,0,0,0,1,2,1)
+   * formalPrintAll output = 10 โยชน์ 0 เส้น 0 วา 0 ศอก 1 คืบ 2 นิ้ว 1 กระเบียด
+   */
+  fun formalPrintAll(): String {
+    val stringBuilder = StringBuilder()
+    return stringBuilder
+      //Auto RegEx Output .append\($1\).append\($2\)
+      .append(yot).append(YOT)
+      .append(sen).append(SEN)
+      .append(wa).append(WA)
+      .append(sok).append(SOK)
+      .append(khuep).append(KHUEP)
+      .append(nio).append(NIO)
+      .append(rounding_number_format.format(krabiat)).append(KRABIAT)
+      .toString().trim()
+  }
+
+  /**
+   * Zero value no print.
+   * Exam create object input Length(10,0,0,0,1,2,1)
+   * formalPrint output = 10 โยชน์ 1 คืบ 2 นิ้ว 1 กระเบียด
+   */
   fun formalPrint(): String {
     val stringBuilder = StringBuilder()
-    //Auto Gen .append\($1\).append\($2\)
     return stringBuilder
+      //Auto RegEx Output .append\(when\($1\) {0-> "" else -> $1.toString\(\)+$2 } \)
       .append(when(yot) {0-> "" else -> yot.toString()+YOT } )
       .append(when(sen) {0-> "" else -> sen.toString()+SEN } )
       .append(when(wa) {0-> "" else -> wa.toString()+WA } )
       .append(when(sok) {0-> "" else -> sok.toString()+SOK } )
       .append(when(khuep) {0-> "" else -> khuep.toString()+KHUEP } )
       .append(when(nio) {0-> "" else -> nio.toString()+NIO } )
-      .append(when(krabiat) {0.0-> "" else -> number_format.format(krabiat)+KRABIAT } )
+      .append(when(krabiat) {0.0-> "" else -> rounding_number_format.format(krabiat)+KRABIAT } )
       .toString().trim()
   }
 }
 
 
-
-//Auto Gen
 /*
-yot	YOT
-sen	SEN
-wa	WA
-sok	SOK
-khuep	KHUEP
-nio	NIO
-krabiat	KRABIAT
+RegEx Gen Code
 
+^(.+)\t(.+)$
+
+yot	YOT
+sen	SEN
+wa	WA
+sok	SOK
+khuep	KHUEP
+nio	NIO
+krabiat	KRABIAT
+-------------------
 krabiat	KRABIAT
 nio	NIO
 khuep	KHUEP
@@ -131,4 +151,5 @@ sok	SOK
 wa	WA
 sen	SEN
 yot	YOT
+-----------------
  */
