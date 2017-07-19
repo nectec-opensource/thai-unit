@@ -8,15 +8,15 @@ import java.text.NumberFormat
  * Thai length unit.
  * Created by user on 11/7/2560.
  */
-data class Length (val cm: Double) {
+data class Length (val centimetres: Double) {
 
 
   /**
    * Create convert object
    */
   constructor(centimetres: Number) : this(centimetres.toDouble())
-  //Auto Gen \($1.toDouble\(\)*CENTIMETRE_PER_$2\)+
-  constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this((yot.toDouble()*CENTIMETRE_PER_YOT)+(sen.toDouble()*CENTIMETRE_PER_SEN)+(wa.toDouble()*CENTIMETRE_PER_WA)+(sok.toDouble()*CENTIMETRE_PER_SOK)+(khuep.toDouble()*CENTIMETRE_PER_KHUEP)+(nio.toDouble()*CENTIMETRE_PER_NIO)+(krabiat.toDouble()*CENTIMETRE_PER_KRABIAT))
+
+  constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this(toCentimetres(yot, sen, wa, sok, khuep, nio, krabiat))
 
   //Auto Gen val $1: Int
   val krabiat: Double
@@ -38,8 +38,8 @@ data class Length (val cm: Double) {
     number_format.roundingMode=java.math.RoundingMode.DOWN
 
     //Convert centimetres to thai unit. YOT->SEN->WA->SOK->KHUEP->NIO->KRABIAT
-    this.yot=(cm/CENTIMETRE_PER_YOT).toInt()
-    temp_value=(cm%CENTIMETRE_PER_YOT)
+    this.yot=(centimetres /CENTIMETRE_PER_YOT).toInt()
+    temp_value=(centimetres %CENTIMETRE_PER_YOT)
 
     //Auto Gen this.$1=\(temp_value/CENTIMETRE_PER_$2\).toInt\(\)\r\ntemp_value=\(temp_value%CENTIMETRE_PER_$2\)
     this.sen=(temp_value/CENTIMETRE_PER_SEN).toInt()
@@ -83,6 +83,18 @@ data class Length (val cm: Double) {
     @JvmField val SEN = " เส้น "
     @JvmField val YOT = " โยชน์ "
 
+    private fun toCentimetres(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number):Number{
+      return +
+
+      //Auto Gen \($1.toDouble\(\)*CENTIMETRE_PER_$2\)+
+        (yot.toDouble()*CENTIMETRE_PER_YOT)+
+        (sen.toDouble()*CENTIMETRE_PER_SEN)+
+        (wa.toDouble()*CENTIMETRE_PER_WA)+
+        (sok.toDouble()*CENTIMETRE_PER_SOK)+
+        (khuep.toDouble()*CENTIMETRE_PER_KHUEP)+
+        (nio.toDouble()*CENTIMETRE_PER_NIO)+
+        (krabiat.toDouble()*CENTIMETRE_PER_KRABIAT)
+    }
   }
 
   fun formalPrint(): String {
