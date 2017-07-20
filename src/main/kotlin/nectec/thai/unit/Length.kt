@@ -118,14 +118,14 @@ data class Length (val centimetres: Double) {
   fun formalPrint(): String {
     val stringBuilder = StringBuilder()
     return stringBuilder
-      //Auto RegEx Output .append\(when\($1\) {0-> "" else -> $1.toString\(\)+$2 } \)
-      .append(when(yot) {0-> "" else -> yot.toString()+YOT } )
-      .append(when(sen) {0-> "" else -> sen.toString()+SEN } )
-      .append(when(wa) {0-> "" else -> wa.toString()+WA } )
-      .append(when(sok) {0-> "" else -> sok.toString()+SOK } )
-      .append(when(khuep) {0-> "" else -> khuep.toString()+KHUEP } )
-      .append(when(nio) {0-> "" else -> nio.toString()+NIO } )
-      .append(when(krabiat) {0.0-> "" else -> rounding_number_format.format(krabiat)+KRABIAT } )
+      //Auto RegEx Output .append\(if \($1>0\){$1.toString\(\)+$2}else{""} \)
+      .append(if (yot>0){yot.toString()+YOT}else{""} )
+      .append(if (sen>0){sen.toString()+SEN}else{""} )
+      .append(if (wa>0){wa.toString()+WA}else{""} )
+      .append(if (sok>0){sok.toString()+SOK}else{""} )
+      .append(if (khuep>0){khuep.toString()+KHUEP}else{""} )
+      .append(if (nio>0){nio.toString()+NIO}else{""} )
+      .append(if (krabiat>0){rounding_number_format.format(krabiat)+KRABIAT}else{""} )
       .toString().trim()
   }
 }
@@ -152,4 +152,11 @@ wa	WA
 sen	SEN
 yot	YOT
 -----------------
+KRABIAT	กระเบียด
+NIO	นิ้ว
+KHUEP	คืบ
+SOK	ศอก
+WA	วา
+SEN	เส้น
+YOT	โยชน์
  */
