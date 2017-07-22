@@ -35,13 +35,13 @@ data class Length (val centimetres: BigDecimal) {
     //Number rounding format.
     rounding_number_format = NumberFormat.getNumberInstance()
     rounding_number_format.maximumFractionDigits=0
-    rounding_number_format.roundingMode=java.math.RoundingMode.DOWN
+    rounding_number_format.roundingMode=java.math.RoundingMode.HALF_UP
 
     var temp_value :BigDecimal
 
 
     //Convert centimetres to thai unit. YOT->SEN->WA->SOK->KHUEP->NIO->KRABIAT
-    this.yot=centimetres.divide(BigDecimal(CENTIMETRE_PER_YOT)).toInt()
+    this.yot=(centimetres.toDouble()/CENTIMETRE_PER_YOT).toInt()
     temp_value=centimetres.remainder(BigDecimal(CENTIMETRE_PER_YOT))
 
 
@@ -57,7 +57,7 @@ data class Length (val centimetres: BigDecimal) {
     this.nio=(temp_value.toDouble()/CENTIMETRE_PER_NIO).toInt()
     temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_NIO))
     this.krabiat=(temp_value.toDouble()/CENTIMETRE_PER_KRABIAT)
-    temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_KRABIAT))
+    //temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_KRABIAT))
   }
 
   companion object {
@@ -112,7 +112,7 @@ data class Length (val centimetres: BigDecimal) {
       .append(sok).append(SOK)
       .append(khuep).append(KHUEP)
       .append(nio).append(NIO)
-      .append(krabiat).append(KRABIAT)
+      .append(rounding_number_format.format(krabiat)).append(KRABIAT)
       .toString().trim()
   }
 
@@ -131,7 +131,7 @@ data class Length (val centimetres: BigDecimal) {
       .append(if (sok>0){sok.toString()+SOK}else{""} )
       .append(if (khuep>0){khuep.toString()+KHUEP}else{""} )
       .append(if (nio>0){nio.toString()+NIO}else{""} )
-      .append(if (krabiat>0){krabiat.toString()+KRABIAT}else{""} )
+      .append(if (krabiat>0){rounding_number_format.format(krabiat)+KRABIAT}else{""} )
       .toString().trim()
   }
 }
