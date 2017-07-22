@@ -83,15 +83,16 @@ data class Length (val centimetres: BigDecimal) {
 
     private fun toCentimetres(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number):BigDecimal{
       var temp_value : BigDecimal
-      temp_value= BigDecimal((yot.toDouble()*CENTIMETRE_PER_YOT))
+      temp_value= BigDecimal.ZERO
 
-      //Auto RegEx Output temp_value = temp_value.add\(BigDecimal\(\($1.toDouble\(\)*CENTIMETRE_PER_$2\)\)\)
-      temp_value = temp_value.add(BigDecimal((sen.toDouble()*CENTIMETRE_PER_SEN)))
-      temp_value = temp_value.add(BigDecimal((wa.toDouble()*CENTIMETRE_PER_WA)))
-      temp_value = temp_value.add(BigDecimal((sok.toDouble()*CENTIMETRE_PER_SOK)))
-      temp_value = temp_value.add(BigDecimal((khuep.toDouble()*CENTIMETRE_PER_KHUEP)))
-      temp_value = temp_value.add(BigDecimal((nio.toDouble()*CENTIMETRE_PER_NIO)))
-      temp_value = temp_value.add(BigDecimal((krabiat.toDouble()*CENTIMETRE_PER_KRABIAT)))
+      //Auto RegEx Output temp_value = temp_value.add\(BigDecimal\($1.toDouble\(\)\).multiply\(BigDecimal\(CENTIMETRE_PER_$2\)\)\)
+      temp_value = temp_value.add(BigDecimal(yot.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_YOT)))
+      temp_value = temp_value.add(BigDecimal(sen.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_SEN)))
+      temp_value = temp_value.add(BigDecimal(wa.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_WA)))
+      temp_value = temp_value.add(BigDecimal(sok.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_SOK)))
+      temp_value = temp_value.add(BigDecimal(khuep.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_KHUEP)))
+      temp_value = temp_value.add(BigDecimal(nio.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_NIO)))
+      temp_value = temp_value.add(BigDecimal(krabiat.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_KRABIAT)))
 
       return temp_value
     }
