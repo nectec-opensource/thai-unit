@@ -8,7 +8,15 @@ import org.junit.Test
 import kotlin.test.assertEquals
 class LenghtTest {
 
-  val lenght = Length(1200.0)
+  val lenght :Length
+  val lenght2 :Length
+
+  constructor(){
+    lenght2 = Length(1200.0)
+    lenght = Length(1200)
+  }
+
+
 
 
   @Test fun sokvalue() {

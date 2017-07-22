@@ -1,6 +1,7 @@
 package nectec.thai.unit
 
 import java.lang.StringBuilder
+import java.math.BigDecimal
 import java.text.NumberFormat
 
 
@@ -9,12 +10,16 @@ import java.text.NumberFormat
  * Ref. https://en.wikipedia.org/wiki/Thai_units_of_measurement
  * Created by max on 11/7/2560.
  */
-data class Length (val centimetres: Double) {
+data class Length (val centimetres: BigDecimal) {
 
-  constructor(centimetres: Number) : this(centimetres.toDouble())
+  constructor(centimetres: Number) : this(BigDecimal(centimetres.toDouble()))
+  constructor(centimetres: Double) : this(BigDecimal(centimetres))
+
   constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this(toCentimetres(yot, sen, wa, sok, khuep, nio, krabiat))
 
   //Auto RegEx Output val $1: Int
+
+
   val krabiat: Double
   val nio: Int
   val khuep: Int
@@ -23,37 +28,36 @@ data class Length (val centimetres: Double) {
   val sen: Int
   val yot: Int
 
-  val rounding_number_format = NumberFormat.getNumberInstance()
+  val rounding_number_format :NumberFormat
 
   init {
 
-    var temp_value :Double
-
     //Number rounding format.
+    rounding_number_format = NumberFormat.getNumberInstance()
     rounding_number_format.maximumFractionDigits=0
     rounding_number_format.roundingMode=java.math.RoundingMode.DOWN
 
+    var temp_value :BigDecimal
+
+
     //Convert centimetres to thai unit. YOT->SEN->WA->SOK->KHUEP->NIO->KRABIAT
-    this.yot=(centimetres /CENTIMETRE_PER_YOT).toInt()
-    temp_value=(centimetres %CENTIMETRE_PER_YOT)
+    this.yot=centimetres.divide(BigDecimal(CENTIMETRE_PER_YOT)).toInt()
+    temp_value=centimetres.remainder(BigDecimal(CENTIMETRE_PER_YOT))
 
-    //Auto RegEx Output this.$1=\(temp_value/CENTIMETRE_PER_$2\).toInt\(\)\r\ntemp_value=\(temp_value%CENTIMETRE_PER_$2\)
-    this.sen=(temp_value/CENTIMETRE_PER_SEN).toInt()
-    temp_value=(temp_value%CENTIMETRE_PER_SEN)
 
-    this.wa=(temp_value/CENTIMETRE_PER_WA).toInt()
-    temp_value=(temp_value%CENTIMETRE_PER_WA)
-
-    this.sok=(temp_value/CENTIMETRE_PER_SOK).toInt()
-    temp_value=(temp_value%CENTIMETRE_PER_SOK)
-
-    this.khuep=(temp_value/CENTIMETRE_PER_KHUEP).toInt()
-    temp_value=(temp_value%CENTIMETRE_PER_KHUEP)
-
-    this.nio=(temp_value/CENTIMETRE_PER_NIO).toInt()
-    temp_value=(temp_value%CENTIMETRE_PER_NIO)
-
-    this.krabiat=((temp_value/CENTIMETRE_PER_KRABIAT)+(temp_value%CENTIMETRE_PER_KRABIAT))
+    //Auto RegEx Output this.$1=\(temp_value.toDouble\(\)/CENTIMETRE_PER_$2\).toInt\(\)\r\ntemp_value=temp_value.remainder\(BigDecimal\(CENTIMETRE_PER_$2\)\)
+    this.sen=(temp_value.toDouble()/CENTIMETRE_PER_SEN).toInt()
+    temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_SEN))
+    this.wa=(temp_value.toDouble()/CENTIMETRE_PER_WA).toInt()
+    temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_WA))
+    this.sok=(temp_value.toDouble()/CENTIMETRE_PER_SOK).toInt()
+    temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_SOK))
+    this.khuep=(temp_value.toDouble()/CENTIMETRE_PER_KHUEP).toInt()
+    temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_KHUEP))
+    this.nio=(temp_value.toDouble()/CENTIMETRE_PER_NIO).toInt()
+    temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_NIO))
+    this.krabiat=(temp_value.toDouble()/CENTIMETRE_PER_KRABIAT)
+    temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_KRABIAT))
   }
 
   companion object {
@@ -77,17 +81,19 @@ data class Length (val centimetres: Double) {
     @JvmField val SEN = " เส้น "
     @JvmField val YOT = " โยชน์ "
 
-    private fun toCentimetres(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number):Number{
-      return +
+    private fun toCentimetres(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number):BigDecimal{
+      var temp_value : BigDecimal
+      temp_value= BigDecimal((yot.toDouble()*CENTIMETRE_PER_YOT))
 
-      //Auto RegEx Output \($1.toDouble\(\)*CENTIMETRE_PER_$2\)+
-        (yot.toDouble()*CENTIMETRE_PER_YOT)+
-        (sen.toDouble()*CENTIMETRE_PER_SEN)+
-        (wa.toDouble()*CENTIMETRE_PER_WA)+
-        (sok.toDouble()*CENTIMETRE_PER_SOK)+
-        (khuep.toDouble()*CENTIMETRE_PER_KHUEP)+
-        (nio.toDouble()*CENTIMETRE_PER_NIO)+
-        (krabiat.toDouble()*CENTIMETRE_PER_KRABIAT)
+      //Auto RegEx Output temp_value = temp_value.add\(BigDecimal\(\($1.toDouble\(\)*CENTIMETRE_PER_$2\)\)\)
+      temp_value = temp_value.add(BigDecimal((sen.toDouble()*CENTIMETRE_PER_SEN)))
+      temp_value = temp_value.add(BigDecimal((wa.toDouble()*CENTIMETRE_PER_WA)))
+      temp_value = temp_value.add(BigDecimal((sok.toDouble()*CENTIMETRE_PER_SOK)))
+      temp_value = temp_value.add(BigDecimal((khuep.toDouble()*CENTIMETRE_PER_KHUEP)))
+      temp_value = temp_value.add(BigDecimal((nio.toDouble()*CENTIMETRE_PER_NIO)))
+      temp_value = temp_value.add(BigDecimal((krabiat.toDouble()*CENTIMETRE_PER_KRABIAT)))
+
+      return temp_value
     }
   }
 
@@ -106,7 +112,7 @@ data class Length (val centimetres: Double) {
       .append(sok).append(SOK)
       .append(khuep).append(KHUEP)
       .append(nio).append(NIO)
-      .append(rounding_number_format.format(krabiat)).append(KRABIAT)
+      .append(krabiat).append(KRABIAT)
       .toString().trim()
   }
 
@@ -125,7 +131,7 @@ data class Length (val centimetres: Double) {
       .append(if (sok>0){sok.toString()+SOK}else{""} )
       .append(if (khuep>0){khuep.toString()+KHUEP}else{""} )
       .append(if (nio>0){nio.toString()+NIO}else{""} )
-      .append(if (krabiat>0){rounding_number_format.format(krabiat)+KRABIAT}else{""} )
+      .append(if (krabiat>0){krabiat.toString()+KRABIAT}else{""} )
       .toString().trim()
   }
 }
