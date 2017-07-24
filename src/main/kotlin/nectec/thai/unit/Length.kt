@@ -135,6 +135,79 @@ data class Length (val centimetres: BigDecimal) {
       .append(if (krabiat>0){rounding_number_format.format(krabiat)+KRABIAT}else{""} )
       .toString().trim()
   }
+
+//Auto RegEx Output fun to$2\(\):Double{\r\nreturn to$2\(centimetres\).toDouble\(\)\r\n  }\r\nfun to$2\(centimetres: Double\):Double{\r\nreturn to$2\(BigDecimal\(centimetres\)\).toDouble\(\)\r\n  }\r\n  fun to$2\(centimetres: BigDecimal\):BigDecimal{\r\nreturn centimetres.remainder\(BigDecimal\(CENTIMETRE_PER_$2\)\)\r\n  }\r\n
+  fun toYOT():Double{
+    return toYOT(centimetres).toDouble()
+  }
+  fun toYOT(centimetres: Double):Double{
+    return toYOT(BigDecimal(centimetres)).toDouble()
+  }
+  fun toYOT(centimetres: BigDecimal):BigDecimal{
+    return centimetres.remainder(BigDecimal(CENTIMETRE_PER_YOT))
+  }
+
+  fun toSEN():Double{
+    return toSEN(centimetres).toDouble()
+  }
+  fun toSEN(centimetres: Double):Double{
+    return toSEN(BigDecimal(centimetres)).toDouble()
+  }
+  fun toSEN(centimetres: BigDecimal):BigDecimal{
+    return centimetres.remainder(BigDecimal(CENTIMETRE_PER_SEN))
+  }
+
+  fun toWA():Double{
+    return toWA(centimetres).toDouble()
+  }
+  fun toWA(centimetres: Double):Double{
+    return toWA(BigDecimal(centimetres)).toDouble()
+  }
+  fun toWA(centimetres: BigDecimal):BigDecimal{
+    return centimetres.remainder(BigDecimal(CENTIMETRE_PER_WA))
+  }
+
+  fun toSOK():Double{
+    return toSOK(centimetres).toDouble()
+  }
+  fun toSOK(centimetres: Double):Double{
+    return toSOK(BigDecimal(centimetres)).toDouble()
+  }
+  fun toSOK(centimetres: BigDecimal):BigDecimal{
+    return centimetres.remainder(BigDecimal(CENTIMETRE_PER_SOK))
+  }
+
+  fun toKHUEP():Double{
+    return toKHUEP(centimetres).toDouble()
+  }
+  fun toKHUEP(centimetres: Double):Double{
+    return toKHUEP(BigDecimal(centimetres)).toDouble()
+  }
+  fun toKHUEP(centimetres: BigDecimal):BigDecimal{
+    return centimetres.remainder(BigDecimal(CENTIMETRE_PER_KHUEP))
+  }
+
+  fun toNIO():Double{
+    return toNIO(centimetres).toDouble()
+  }
+  fun toNIO(centimetres: Double):Double{
+    return toNIO(BigDecimal(centimetres)).toDouble()
+  }
+  fun toNIO(centimetres: BigDecimal):BigDecimal{
+    return centimetres.remainder(BigDecimal(CENTIMETRE_PER_NIO))
+  }
+
+  fun toKRABIAT():Double{
+    return toKRABIAT(centimetres).toDouble()
+  }
+  fun toKRABIAT(centimetres: Double):Double{
+    return toKRABIAT(BigDecimal(centimetres)).toDouble()
+  }
+  fun toKRABIAT(centimetres: BigDecimal):BigDecimal{
+    return centimetres.remainder(BigDecimal(CENTIMETRE_PER_KRABIAT))
+  }
+
+
 }
 
 
