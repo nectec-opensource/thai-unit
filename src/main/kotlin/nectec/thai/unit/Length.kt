@@ -45,24 +45,23 @@ data class Length (val centimetres: BigDecimal) {
     temp_value=centimetres.remainder(BigDecimal(CENTIMETRE_PER_YOT))
 
 
-    //Auto RegEx Output this.$1=\(temp_value.toDouble\(\)/CENTIMETRE_PER_$2\).toInt\(\)\r\ntemp_value=temp_value.remainder\(BigDecimal\(CENTIMETRE_PER_$2\)\)
 
-this.sen=toSEN(temp_value).toInt()
-temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_SEN))
+    this.sen = toSEN(temp_value).toInt()
+    temp_value = temp_value.remainder(BigDecimal(CENTIMETRE_PER_SEN))
 
-this.wa=toWA(temp_value).toInt()
-temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_WA))
+    this.wa = toWA(temp_value).toInt()
+    temp_value = temp_value.remainder(BigDecimal(CENTIMETRE_PER_WA))
 
-this.sok=toSOK(temp_value).toInt()
-temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_SOK))
+    this.sok = toSOK(temp_value).toInt()
+    temp_value = temp_value.remainder(BigDecimal(CENTIMETRE_PER_SOK))
 
-this.khuep=toKHUEP(temp_value).toInt()
-temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_KHUEP))
+    this.khuep = toKHUEP(temp_value).toInt()
+    temp_value = temp_value.remainder(BigDecimal(CENTIMETRE_PER_KHUEP))
 
-this.nio=toNIO(temp_value).toInt()
-temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_NIO))
+    this.nio = toNIO(temp_value).toInt()
+    temp_value = temp_value.remainder(BigDecimal(CENTIMETRE_PER_NIO))
 
-this.krabiat=toKRABIAT(temp_value).toDouble()
+    this.krabiat = toKRABIAT(temp_value)
 //temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_KRABIAT))
 
   }
@@ -143,87 +142,74 @@ this.krabiat=toKRABIAT(temp_value).toDouble()
       .toString().trim()
   }
 
-  fun toYOT(): Double {
-    return toYOT(centimetres.toDouble())
-  }
-
-  fun toYOT(centimetres: Double): Double {
-    return centimetres / CENTIMETRE_PER_YOT
-  }
 
   fun toYOT(centimetres: BigDecimal): Double {
     return toYOT(centimetres.toDouble())
   }
-
-  fun toSEN(): Double {
-    return toSEN(centimetres.toDouble())
+  fun toYOT(centimetres: Double): Double {
+    return centimetres / CENTIMETRE_PER_YOT
   }
-
-  fun toSEN(centimetres: Double): Double {
-    return centimetres / CENTIMETRE_PER_SEN
+  fun toYOT(): Double {
+    return toYOT(centimetres.toDouble())
   }
 
   fun toSEN(centimetres: BigDecimal): Double {
     return toSEN(centimetres.toDouble())
   }
-
-  fun toWA(): Double {
-    return toWA(centimetres.toDouble())
+  fun toSEN(centimetres: Double): Double {
+    return centimetres / CENTIMETRE_PER_SEN
   }
-
-  fun toWA(centimetres: Double): Double {
-    return centimetres / CENTIMETRE_PER_WA
+  fun toSEN(): Double {
+    return toSEN(centimetres.toDouble())
   }
 
   fun toWA(centimetres: BigDecimal): Double {
     return toWA(centimetres.toDouble())
   }
-
-  fun toSOK(): Double {
-    return toSOK(centimetres.toDouble())
+  fun toWA(centimetres: Double): Double {
+    return centimetres / CENTIMETRE_PER_WA
   }
-
-  fun toSOK(centimetres: Double): Double {
-    return centimetres / CENTIMETRE_PER_SOK
+  fun toWA(): Double {
+    return toWA(centimetres.toDouble())
   }
 
   fun toSOK(centimetres: BigDecimal): Double {
     return toSOK(centimetres.toDouble())
   }
-
-  fun toKHUEP(): Double {
-    return toKHUEP(centimetres.toDouble())
+  fun toSOK(centimetres: Double): Double {
+    return centimetres / CENTIMETRE_PER_SOK
   }
-
-  fun toKHUEP(centimetres: Double): Double {
-    return centimetres / CENTIMETRE_PER_KHUEP
+  fun toSOK(): Double {
+    return toSOK(centimetres.toDouble())
   }
 
   fun toKHUEP(centimetres: BigDecimal): Double {
     return toKHUEP(centimetres.toDouble())
   }
-
-  fun toNIO(): Double {
-    return toNIO(centimetres.toDouble())
+  fun toKHUEP(centimetres: Double): Double {
+    return centimetres / CENTIMETRE_PER_KHUEP
   }
-
-  fun toNIO(centimetres: Double): Double {
-    return centimetres / CENTIMETRE_PER_NIO
+  fun toKHUEP(): Double {
+    return toKHUEP(centimetres.toDouble())
   }
 
   fun toNIO(centimetres: BigDecimal): Double {
     return toNIO(centimetres.toDouble())
   }
-
-  fun toKRABIAT(): Double {
-    return toKRABIAT(centimetres.toDouble())
+  fun toNIO(centimetres: Double): Double {
+    return centimetres / CENTIMETRE_PER_NIO
   }
-
-  fun toKRABIAT(centimetres: Double): Double {
-    return centimetres / CENTIMETRE_PER_KRABIAT
+  fun toNIO(): Double {
+    return toNIO(centimetres.toDouble())
   }
 
   fun toKRABIAT(centimetres: BigDecimal): Double {
+    return toKRABIAT(centimetres.toDouble())
+  }
+  fun toKRABIAT(centimetres: Double): Double {
+    return centimetres / CENTIMETRE_PER_KRABIAT
+  }
+  fun toKRABIAT(): Double {
     return toKRABIAT(centimetres.toDouble())
   }
 
