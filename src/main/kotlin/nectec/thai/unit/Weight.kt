@@ -1,6 +1,7 @@
 package nectec.thai.unit
 
 import java.math.BigDecimal
+import java.text.NumberFormat
 
 data class Weight (val gram :BigDecimal){
 
@@ -13,7 +14,14 @@ data class Weight (val gram :BigDecimal){
   val chang: Int
   val hap: Int
 
+  val rounding_number_format : NumberFormat
+
   init {
+
+    //Number rounding format.
+    rounding_number_format = NumberFormat.getNumberInstance()
+    rounding_number_format.maximumFractionDigits=0
+    rounding_number_format.roundingMode=java.math.RoundingMode.HALF_UP
 
     var temp_value :BigDecimal
 
@@ -59,6 +67,35 @@ data class Weight (val gram :BigDecimal){
       return temp_value
     }
   }
+
+  fun formalPrintAll(): String {
+    val stringBuilder = StringBuilder()
+    return stringBuilder
+      //Auto RegEx Output .append\($2\).append\($1\)
+
+      .append(hap).append(HAP)
+      .append(chang).append(CHANG)
+      .append(tamlueng).append(TAMLUENG)
+      .append(baht).append(BAHT)
+      .append(rounding_number_format.format(salueng)).append(SALUENG)
+      .toString().trim()
+  }
+
+  fun formalPrint(): String {
+    val stringBuilder = StringBuilder()
+    return stringBuilder
+      //Auto RegEx Output .append\(if \($2>0\){$2.toString\(\)+$1}else{""} \)
+      .append(if (hap>0){hap.toString()+HAP}else{""} )
+      .append(if (chang>0){chang.toString()+CHANG}else{""} )
+      .append(if (tamlueng>0){tamlueng.toString()+TAMLUENG}else{""} )
+      .append(if (baht>0){baht.toString()+BAHT}else{""} )
+      .append(if (salueng>0){rounding_number_format.format(salueng)+SALUENG}else{""} )
+      .toString().trim()
+  }
+
+
+
+
 
   fun toSALUENG(gram: Double): Double {
     return gram / GRAM_PER_SALUENG
