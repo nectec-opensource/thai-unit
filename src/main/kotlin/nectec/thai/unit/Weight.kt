@@ -10,7 +10,7 @@ data class Weight (val gram :BigDecimal){
   constructor(hap: Number,chang: Number,tamlueng: Number,baht: Number,salueng: Number) : this(toGram(hap, chang, tamlueng, baht, salueng))
 
 
-  val salueng: Int
+  val salueng: Double
   val baht: Int
   val tamlueng: Int
   val chang: Int
@@ -36,7 +36,7 @@ data class Weight (val gram :BigDecimal){
     temp_value = temp_value.remainder(BigDecimal(GRAM_PER_TAMLUENG))
     this.baht = toBAHT(temp_value).toInt()
     temp_value = temp_value.remainder(BigDecimal(GRAM_PER_BAHT))
-    this.salueng = toSALUENG(temp_value).toInt()
+    this.salueng = toSALUENG(temp_value).toDouble()
     //temp_value = temp_value.remainder(BigDecimal(GRAM_PER_SALUENG))
 
 
