@@ -70,7 +70,11 @@ data class Weight (val gram :BigDecimal){
     }
   }
 
-
+  /**
+   * Print All
+   * Exam create object input Weight(2,2,2,2,30000)
+   * formalPrintAll output = 3 หาบ 45 ชั่ง 17 ตำลึง 2 บาท 0 สลึง
+   */
   fun formalPrintAll(): String {
     val stringBuilder = StringBuilder()
     return stringBuilder
@@ -84,6 +88,11 @@ data class Weight (val gram :BigDecimal){
       .toString().trim()
   }
 
+  /**
+   * Zero value no print.
+   * Exam create object input Weight(2,2,2,2,30000)
+   * formalPrint output = 3 หาบ 45 ชั่ง 17 ตำลึง 2 บาท
+   */
   fun formalPrint(): String {
     val stringBuilder = StringBuilder()
     return stringBuilder

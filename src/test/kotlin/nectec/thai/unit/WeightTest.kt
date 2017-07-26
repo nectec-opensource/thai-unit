@@ -2,6 +2,12 @@ package nectec.thai.unit
 import org.junit.Test
 import kotlin.test.assertEquals
 
+
+/**
+ * Thai length unit.
+ * Ref. https://en.wikipedia.org/wiki/Thai_units_of_measurement
+ * Created by max on 26/7/2560.
+ */
 class WeightTest {
   val weightTest1 :Weight
   val weightTest2 :Weight
