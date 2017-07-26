@@ -4,6 +4,8 @@ import java.math.BigDecimal
 
 data class Weight (val gram :BigDecimal){
 
+  constructor(gram: Number) : this(BigDecimal(gram.toDouble()))
+  constructor(gram: Double) : this(BigDecimal(gram))
 
   val salueng: Int
   val baht: Int
@@ -15,7 +17,6 @@ data class Weight (val gram :BigDecimal){
 
     var temp_value :BigDecimal
 
-
     this.hap=toHAP(gram).toInt()
     temp_value=gram.remainder(BigDecimal(GRAM_PER_HAP))
 
@@ -26,7 +27,7 @@ data class Weight (val gram :BigDecimal){
     this.baht = toBAHT(temp_value).toInt()
     temp_value = temp_value.remainder(BigDecimal(GRAM_PER_BAHT))
     this.salueng = toSALUENG(temp_value).toInt()
-    temp_value = temp_value.remainder(BigDecimal(GRAM_PER_SALUENG))
+    //temp_value = temp_value.remainder(BigDecimal(GRAM_PER_SALUENG))
 
 
   }
