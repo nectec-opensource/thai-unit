@@ -11,6 +11,21 @@ class WeightTest {
     weightTest2 = Weight(3000)
   }
 
+
+  @Test fun constructorTest() {
+    assertEquals("2 หาบ 2 ชั่ง 2 ตำลึง 2 บาท 2 สลึง", Weight(2,2,2,2,2).formalPrintAll())
+  }
+
+  @Test fun constructorTest2() {
+    assertEquals("2000 หาบ 2 ชั่ง 2 ตำลึง 2 บาท 2 สลึง", Weight(2000,2,2,2,2).formalPrintAll())
+  }
+  @Test fun constructorTest3() {
+    assertEquals("3 หาบ 45 ชั่ง 17 ตำลึง 2 บาท 0 สลึง", Weight(2,2,2,2,30000).formalPrintAll())
+  }
+  @Test fun constructorTest4() {
+    assertEquals("3 หาบ 45 ชั่ง 17 ตำลึง 2 บาท", Weight(2,2,2,2,30000).formalPrint())
+  }
+
   @Test fun toHapFunction() {
     assertEquals(0.5, weightTest1.toHAP(30000.0))
   }
@@ -46,6 +61,9 @@ class WeightTest {
   @Test fun formalPrint2() {
     assertEquals("2 ชั่ง 10 ตำลึง", weightTest2.formalPrint())
   }
+
+
+
 
 
 }

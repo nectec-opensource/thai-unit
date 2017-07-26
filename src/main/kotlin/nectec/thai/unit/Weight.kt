@@ -7,6 +7,8 @@ data class Weight (val gram :BigDecimal){
 
   constructor(gram: Number) : this(BigDecimal(gram.toDouble()))
   constructor(gram: Double) : this(BigDecimal(gram))
+  constructor(hap: Number,chang: Number,tamlueng: Number,baht: Number,salueng: Number) : this(toGram(hap, chang, tamlueng, baht, salueng))
+
 
   val salueng: Int
   val baht: Int
@@ -54,7 +56,7 @@ data class Weight (val gram :BigDecimal){
     @JvmField val CHANG = " ชั่ง "
     @JvmField val HAP = " หาบ "
 
-    private fun toGram( salueng: Number,baht: Number,tamlueng: Number,chang: Number,hap: Number): BigDecimal{
+    private fun toGram( hap: Number,chang: Number,tamlueng: Number,baht: Number,salueng: Number): BigDecimal{
 
       var temp_value : BigDecimal
       temp_value= BigDecimal.ZERO
@@ -67,6 +69,7 @@ data class Weight (val gram :BigDecimal){
       return temp_value
     }
   }
+
 
   fun formalPrintAll(): String {
     val stringBuilder = StringBuilder()
@@ -92,9 +95,6 @@ data class Weight (val gram :BigDecimal){
       .append(if (salueng>0){rounding_number_format.format(salueng)+SALUENG}else{""} )
       .toString().trim()
   }
-
-
-
 
 
   fun toSALUENG(gram: Double): Double {
