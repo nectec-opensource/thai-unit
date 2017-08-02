@@ -17,9 +17,6 @@ data class Length (val centimetres: BigDecimal) {
 
   constructor(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number) : this(toCentimetres(yot, sen, wa, sok, khuep, nio, krabiat))
 
-  //Auto RegEx Output val $1: Int
-
-
   val krabiat: Double
   val nio: Int
   val khuep: Int
@@ -40,11 +37,8 @@ data class Length (val centimetres: BigDecimal) {
     var temp_value :BigDecimal
 
 
-    //Convert centimetres to thai unit. YOT->SEN->WA->SOK->KHUEP->NIO->KRABIAT
     this.yot=toYOT(centimetres).toInt()
     temp_value=centimetres.remainder(BigDecimal(CENTIMETRE_PER_YOT))
-
-
 
     this.sen = toSEN(temp_value).toInt()
     temp_value = temp_value.remainder(BigDecimal(CENTIMETRE_PER_SEN))
@@ -62,14 +56,12 @@ data class Length (val centimetres: BigDecimal) {
     temp_value = temp_value.remainder(BigDecimal(CENTIMETRE_PER_NIO))
 
     this.krabiat = toKRABIAT(temp_value).toDouble()
-//temp_value=temp_value.remainder(BigDecimal(CENTIMETRE_PER_KRABIAT))
 
   }
 
   companion object {
 
     //Ref. https://en.wikipedia.org/wiki/Thai_units_of_measurement
-    //Auto RegEx Output @JvmField val CENTIMETRE_PER_$1 = xx
     @JvmField val CENTIMETRE_PER_KRABIAT = 0.5208
     @JvmField val CENTIMETRE_PER_NIO = 2.083
     @JvmField val CENTIMETRE_PER_KHUEP = 25
@@ -78,7 +70,6 @@ data class Length (val centimetres: BigDecimal) {
     @JvmField val CENTIMETRE_PER_SEN = 4000
     @JvmField val CENTIMETRE_PER_YOT = 1600000
 
-    //Auto RegEx Output @JvmField val $1 = "$2"
     @JvmField val KRABIAT = " กระเบียด "
     @JvmField val NIO = " นิ้ว "
     @JvmField val KHUEP = " คืบ "
@@ -90,8 +81,6 @@ data class Length (val centimetres: BigDecimal) {
     private fun toCentimetres(yot: Number,sen:Number,wa:Number,sok:Number,khuep:Number,nio:Number,krabiat:Number):BigDecimal{
       var temp_value : BigDecimal
       temp_value= BigDecimal.ZERO
-
-      //Auto RegEx Output temp_value = temp_value.add\(BigDecimal\($1.toDouble\(\)\).multiply\(BigDecimal\(CENTIMETRE_PER_$2\)\)\)
       temp_value = temp_value.add(BigDecimal(yot.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_YOT)))
       temp_value = temp_value.add(BigDecimal(sen.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_SEN)))
       temp_value = temp_value.add(BigDecimal(wa.toDouble()).multiply(BigDecimal(CENTIMETRE_PER_WA)))
@@ -112,7 +101,6 @@ data class Length (val centimetres: BigDecimal) {
   fun formalPrintAll(): String {
     val stringBuilder = StringBuilder()
     return stringBuilder
-      //Auto RegEx Output .append\($1\).append\($2\)
       .append(yot).append(YOT)
       .append(sen).append(SEN)
       .append(wa).append(WA)
@@ -131,7 +119,6 @@ data class Length (val centimetres: BigDecimal) {
   fun formalPrint(): String {
     val stringBuilder = StringBuilder()
     return stringBuilder
-      //Auto RegEx Output .append\(if \($1>0\){$1.toString\(\)+$2}else{""} \)
       .append(if (yot>0){yot.toString()+YOT}else{""} )
       .append(if (sen>0){sen.toString()+SEN}else{""} )
       .append(if (wa>0){wa.toString()+WA}else{""} )
@@ -214,34 +201,3 @@ data class Length (val centimetres: BigDecimal) {
   }
 
 }
-
-
-/*
-RegEx Gen Code
-
-^(.+)\t(.+)$
-
-yot	YOT
-sen	SEN
-wa	WA
-sok	SOK
-khuep	KHUEP
-nio	NIO
-krabiat	KRABIAT
--------------------
-krabiat	KRABIAT
-nio	NIO
-khuep	KHUEP
-sok	SOK
-wa	WA
-sen	SEN
-yot	YOT
------------------
-KRABIAT	กระเบียด
-NIO	นิ้ว
-KHUEP	คืบ
-SOK	ศอก
-WA	วา
-SEN	เส้น
-YOT	โยชน์
- */

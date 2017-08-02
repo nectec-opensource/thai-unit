@@ -37,7 +37,6 @@ data class Weight (val gram :BigDecimal){
     this.baht = toBAHT(temp_value).toInt()
     temp_value = temp_value.remainder(BigDecimal(GRAM_PER_BAHT))
     this.salueng = toSALUENG(temp_value).toDouble()
-    //temp_value = temp_value.remainder(BigDecimal(GRAM_PER_SALUENG))
 
 
   }
@@ -78,8 +77,6 @@ data class Weight (val gram :BigDecimal){
   fun formalPrintAll(): String {
     val stringBuilder = StringBuilder()
     return stringBuilder
-      //Auto RegEx Output .append\($2\).append\($1\)
-
       .append(hap).append(HAP)
       .append(chang).append(CHANG)
       .append(tamlueng).append(TAMLUENG)
@@ -96,7 +93,6 @@ data class Weight (val gram :BigDecimal){
   fun formalPrint(): String {
     val stringBuilder = StringBuilder()
     return stringBuilder
-      //Auto RegEx Output .append\(if \($2>0\){$2.toString\(\)+$1}else{""} \)
       .append(if (hap>0){hap.toString()+HAP}else{""} )
       .append(if (chang>0){chang.toString()+CHANG}else{""} )
       .append(if (tamlueng>0){tamlueng.toString()+TAMLUENG}else{""} )
@@ -159,19 +155,3 @@ data class Weight (val gram :BigDecimal){
 }
 
 
-/*
-
-^ *(.+)\t(.+)\t(.+)\t(.+)\t(.+)$
-SALUENG	salueng	Salueng	สลึง	3.75
-BAHT	baht	Baht	บาท	15
-TAMLUENG	tamlueng	Tamlueng	ตำลึง	60
-CHANG	chang	Chang	ชั่ง	1200
-HAP	hap	Hap	หาบ	60000
-
-^ *(.+)\t(.+)\t(.+)\t(.+)$
-HAP	hap	Hap	หาบ
-CHANG	chang	Chang	ชั่ง
-TAMLUENG	tamlueng	Tamlueng	ตำลึง
-BAHT	baht	Baht	บาท
-SALUENG	salueng	Salueng	สลึง
- */
