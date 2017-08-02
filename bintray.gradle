@@ -1,27 +1,6 @@
-/*buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    //https://github.com/Kotlin/dokka
-    classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.15"
-  }
-}
-
-apply plugin: "org.jetbrains.dokka"*/
 apply plugin: 'com.jfrog.bintray'
 apply plugin: "maven-publish"
 
-/*dokka {
-  outputFormat = 'javadoc'
-  outputDirectory = "$buildDir/javadoc"
-}
-task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-  outputFormat = 'javadoc'
-  outputDirectory = "$buildDir/javadoc"
-}*/
 
 bintray {
   user = project.hasProperty('bintrayUser') ? project.getProperty('bintrayUser') :
