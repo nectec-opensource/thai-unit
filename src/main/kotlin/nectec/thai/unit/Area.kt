@@ -19,7 +19,7 @@ package nectec.thai.unit
 
 import java.lang.StringBuilder
 
-data class Area(val squareMetre: Double) {
+data class Area(val squareMetre: Double) : Comparable<Area> {
 
   constructor(squareMetre: Int) : this(squareMetre.toDouble())
 
@@ -80,6 +80,10 @@ data class Area(val squareMetre: Double) {
     return squareMeter % SQUARE_METRE_PER_NGAN / SQUARE_METRE_PER_SQUARE_WA
   }
 
+  override fun compareTo(other: Area): Int {
+    return squareMetre.compareTo(other.squareMetre)
+  }
+
   companion object {
     @JvmField val SQUARE_METRE_PER_RAI = 1600
     @JvmField val SQUARE_METRE_PER_NGAN = 400
@@ -96,5 +100,4 @@ data class Area(val squareMetre: Double) {
   fun Double.round(): Any {
     return if (this == Math.floor(this)) this.toInt() else this.toString()
   }
-
 }

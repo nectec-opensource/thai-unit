@@ -20,6 +20,7 @@ package nectec.thai.unit
 import com.google.gson.Gson
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class AreaTest {
 
@@ -89,5 +90,12 @@ class AreaTest {
     val area = Gson().fromJson("{\"rai\":1,\"ngan\":0,\"squareWa\":0,\"squareMetre\":1600}",
         Area::class.java)
     assertEquals(1, area.rai)
+  }
+
+  @Test
+  fun compare() {
+    assertTrue(Area(1, 0, 0) > Area(0, 3, 99))
+    assertTrue(Area(1, 0, 0) == Area(1600.0))
+    assertTrue(Area(2, 0, 0) < Area(4, 0, 99))
   }
 }
