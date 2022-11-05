@@ -1,18 +1,12 @@
 plugins {
   id "com.jfrog.bintray" version "1.7.3"
   id "org.jetbrains.kotlin.jvm" version '1.7.20'
+  id "com.palantir.git-version" version "0.15.0"
   id "maven-publish"
 }
 
 group 'th.or.nectec'
-version = {->
-  def stdout = new ByteArrayOutputStream()
-  exec {
-    commandLine 'git', 'describe', '--tags'
-    standardOutput = stdout
-  }
-  return stdout.toString().trim()
-}.call()
+version = versionDetails().lastTag
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
