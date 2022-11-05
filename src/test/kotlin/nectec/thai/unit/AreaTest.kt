@@ -18,39 +18,45 @@
 package nectec.thai.unit
 
 import com.google.gson.Gson
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class AreaTest {
 
-  val area = Area(1600.0)
+  private val area = Area(1600.0)
 
-  @Test fun getRai() {
+  @Test
+  fun getRai() {
     assertEquals(1, area.rai)
   }
 
-  @Test fun getNgan() {
+  @Test
+  fun getNgan() {
     assertEquals(0, area.ngan)
   }
 
-  @Test fun getSquareWa() {
-    assertEquals(0.0, area.squareWa)
+  @Test
+  fun getSquareWa() {
+    assertEquals(0.0, area.squareWa, .0)
   }
 
-  @Test fun getSquareMetre() {
-    assertEquals(1600.0, area.squareMetre)
+  @Test
+  fun getSquareMetre() {
+    assertEquals(1600.0, area.squareMetre, .0)
   }
 
-  @Test fun formalPrint() {
-    assertEquals("1 ไร่", area.formalPrint());
-    assertEquals("2 งาน", Area(0, 2, 0).formalPrint());
-    assertEquals("1 ตารางวา", Area(0, 0, 1).formalPrint());
-    assertEquals("1 ไร่ 99 ตารางวา", Area(0, 0, 499).formalPrint());
-    assertEquals("2 ไร่ 3 งาน 99 ตารางวา", Area(0, 7, 499).formalPrint());
+  @Test
+  fun formalPrint() {
+    assertEquals("1 ไร่", area.formalPrint())
+    assertEquals("2 งาน", Area(0, 2, 0).formalPrint())
+    assertEquals("1 ตารางวา", Area(0, 0, 1).formalPrint())
+    assertEquals("1 ไร่ 99 ตารางวา", Area(0, 0, 499).formalPrint())
+    assertEquals("2 ไร่ 3 งาน 99 ตารางวา", Area(0, 7, 499).formalPrint())
   }
 
-  @Test fun prettyPrint() {
+  @Test
+  fun prettyPrint() {
     assertEquals("1-0-0 ไร่", area.prettyPrint())
     assertEquals("0-2-0 ไร่", Area(0, 2, 0).prettyPrint())
     assertEquals("0-0-1.9 ไร่", Area(0, 0, 1.9).prettyPrint())
@@ -58,35 +64,37 @@ class AreaTest {
     assertEquals("2-3-99.75 ไร่", Area(0, 7, 499.75).prettyPrint())
   }
 
-  @Test fun rounding() {
+  @Test
+  fun rounding() {
     val ex1 = Area(2400.0)
     assertEquals(1, ex1.rai)
     assertEquals(2, ex1.ngan)
-    assertEquals(0.0, ex1.squareWa)
+    assertEquals(0.0, ex1.squareWa, .0)
 
     val ex2 = Area(1599.0)
     assertEquals(0, ex2.rai)
     assertEquals(3, ex2.ngan)
-    assertEquals(99.75, ex2.squareWa)
+    assertEquals(99.75, ex2.squareWa, .0)
 
     val ex3 = Area(1605.0)
     assertEquals(1, ex3.rai)
     assertEquals(0, ex3.ngan)
-    assertEquals(1.25, ex3.squareWa)
+    assertEquals(1.25, ex3.squareWa, .0)
 
     val ex4 = Area(1601.0)
     assertEquals(1, ex4.rai)
     assertEquals(0, ex4.ngan)
-    assertEquals(0.25, ex4.squareWa)
+    assertEquals(0.25, ex4.squareWa, .0)
   }
 
-  @Test fun gsonToJson() {
-    assertEquals("{\"rai\":1,\"ngan\":0,\"squareWa\":0.0,\"squareMetre\":1600.0}",
+  @Test
+  fun gsonToJson() {
+    assertEquals("{\"squareMetre\":1600.0,\"rai\":1,\"ngan\":0,\"squareWa\":0.0}",
         Gson().toJson(Area(1600.0)))
-
   }
 
-  @Test fun gsonFromJson() {
+  @Test
+  fun gsonFromJson() {
     val area = Gson().fromJson("{\"rai\":1,\"ngan\":0,\"squareWa\":0,\"squareMetre\":1600}",
         Area::class.java)
     assertEquals(1, area.rai)
@@ -95,7 +103,7 @@ class AreaTest {
   @Test
   fun compare() {
     assertTrue(Area(1, 0, 0) > Area(0, 3, 99))
-    assertTrue(Area(1, 0, 0) == Area(1600.0))
+    assertEquals(Area(1, 0, 0), Area(1600.0))
     assertTrue(Area(2, 0, 0) < Area(4, 0, 99))
   }
 }
