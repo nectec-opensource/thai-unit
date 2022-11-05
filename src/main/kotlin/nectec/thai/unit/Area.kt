@@ -18,6 +18,7 @@
 package nectec.thai.unit
 
 import java.lang.StringBuilder
+import kotlin.math.floor
 
 data class Area(val squareMetre: Double) : Comparable<Area> {
 
@@ -97,7 +98,7 @@ data class Area(val squareMetre: Double) : Comparable<Area> {
     }
   }
 
-  fun Double.round(): Any {
-    return if (this == Math.floor(this)) this.toInt() else this.toString()
+  private fun Double.round(): Any {
+    return if (this == floor(this)) this.toInt() else this.toString()
   }
 }
