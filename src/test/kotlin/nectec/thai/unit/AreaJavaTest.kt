@@ -16,13 +16,13 @@
  */
 package nectec.thai.unit
 
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class AreaJavaTest {
-    @Test
-    fun name() {
-        val area = Area(1600).copy(3200.0)
-        Assert.assertEquals(2, area.rai.toLong())
-    }
+  @Test
+  fun name() {
+    val area = Area(1600).copy(3200.0)
+    assertEquals(2, area.rai.toLong())
+  }
 }

@@ -18,9 +18,9 @@
 package nectec.thai.unit
 
 import com.google.gson.Gson
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class AreaTest {
 
@@ -38,12 +38,12 @@ class AreaTest {
 
   @Test
   fun getSquareWa() {
-    assertEquals(0.0, area.squareWa)
+    assertEquals(0.0, area.squareWa, .0)
   }
 
   @Test
   fun getSquareMetre() {
-    assertEquals(1600.0, area.squareMetre)
+    assertEquals(1600.0, area.squareMetre, .0)
   }
 
   @Test
@@ -69,22 +69,22 @@ class AreaTest {
     val ex1 = Area(2400.0)
     assertEquals(1, ex1.rai)
     assertEquals(2, ex1.ngan)
-    assertEquals(0.0, ex1.squareWa)
+    assertEquals(0.0, ex1.squareWa, .0)
 
     val ex2 = Area(1599.0)
     assertEquals(0, ex2.rai)
     assertEquals(3, ex2.ngan)
-    assertEquals(99.75, ex2.squareWa)
+    assertEquals(99.75, ex2.squareWa, .0)
 
     val ex3 = Area(1605.0)
     assertEquals(1, ex3.rai)
     assertEquals(0, ex3.ngan)
-    assertEquals(1.25, ex3.squareWa)
+    assertEquals(1.25, ex3.squareWa, .0)
 
     val ex4 = Area(1601.0)
     assertEquals(1, ex4.rai)
     assertEquals(0, ex4.ngan)
-    assertEquals(0.25, ex4.squareWa)
+    assertEquals(0.25, ex4.squareWa, .0)
   }
 
   @Test
