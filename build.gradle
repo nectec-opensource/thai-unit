@@ -1,29 +1,44 @@
 plugins {
-  id "com.jfrog.bintray" version "1.7.3"
-  id "org.jetbrains.kotlin.jvm" version '1.7.20'
+  id "org.jetbrains.kotlin.jvm" version "1.7.20"
   id "com.palantir.git-version" version "0.15.0"
   id "maven-publish"
 }
 
-group 'th.or.nectec'
+group "th.or.nectec"
 version = versionDetails().lastTag
+
+ext {
+  libraryName = "Thai Units"
+  libraryDescription = "Kotlin library for handle Thai units of measurement"
+
+  groupId = "com.github.nectec-opensource"
+  artifactId = "thai-unit"
+
+  siteUrl = "https://github.com/${project.githubRepo}"
+  gitUrl = "https://github.com/${project.githubRepo}.git"
+
+  developerId = 'piruin'
+  developName = 'Piruin Panichphol'
+  developerEmail = 'piruin.panichphol@nectec.or.th'
+
+  licenseName = "The Apache License, Version 2.0"
+  licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
   mavenCentral()
-  jcenter()
 }
 
 dependencies {
-  def kotlinVersion = '1.7.20'
+  def kotlinVersion = "1.7.20"
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
-  testImplementation 'junit:junit:4.13.2'
-  testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
-  testImplementation 'com.google.code.gson:gson:2.10'
+  testImplementation "junit:junit:4.13.2"
+  testImplementation "com.google.code.gson:gson:2.10"
 }
 
-apply from: 'bintray.gradle'
+apply from: './publish/mavencentral.gradle'
