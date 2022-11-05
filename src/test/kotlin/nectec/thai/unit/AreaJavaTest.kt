@@ -14,17 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package nectec.thai.unit
 
-package nectec.thai.unit;
+import org.junit.Assert
+import org.junit.Test
 
-import org.junit.Assert;
-import org.junit.Test;
-
-public class AreaJavaTest {
-
-  @Test
-  public void name() throws Exception {
-    Area area = new Area(1600).copy(3200);
-    Assert.assertEquals(2, area.getRai());
-  }
+class AreaJavaTest {
+    @Test
+    fun name() {
+        val area = Area(1600).copy(3200.0)
+        Assert.assertEquals(2, area.rai.toLong())
+    }
 }
